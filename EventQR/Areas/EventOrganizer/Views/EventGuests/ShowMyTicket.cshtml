@@ -1,0 +1,271 @@
+﻿@model EventQR.Models.EventGuest 
+@{ Layout = "~/Views/Shared/_blankAdminKitLayout.cshtml"; } 
+@* 
+<div class="row justify-content-center w-75 m-auto mt-5 main  ">
+
+    <div class="col-4 align-self-center">
+        <div class="">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="bg-blue-active text-center border border-1 rounded">
+                <h5 class="widget-user-username  mt-2  "><lable>Name : </lable> @Model.Name</h5>
+                <h6 class="widget-user-desc mt-3 "><label class="">Contact no : </label> @Model.MobileNo1</h6>
+                <h6 class="widget-user-desc"><label>Email ID :</label> @Model.Email</h6>
+                <h6 class="widget-user-desc "><label>Total Guest :</label> @Model.GuestCount</h6>
+            </div>
+            <div class="align-content-center bg-gray bg-opacity-25 rounded">
+                <img style="width:12em" class="rounded mx-auto d-block" src="@Model.BarCodeUrl" />
+
+            </div>
+            <div class="text-center bg-blue-active border border-1 rounded ">
+                <h5 class="mt-2"><label>Event : </label> @Model.MyEvent.Title</h5>
+                <h5 class=""><label>Venu : </label> @Model.MyEvent.Venue</h5>
+                <h6 class=""><label>About Event : </label> @Model.MyEvent.Description</h6>
+                <h6 class="mb-1"><label>Timing : </label> @Model.MyEvent.StartDate.ToString()</h6>
+            </div>
+        </div>
+    </div> 
+</div> 
+*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Scanner QR</title>
+    <style>
+        * {
+    box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    font-family: "Ubuntu", sans-serif;
+            background-image: url("/UiTemplate/landingpage/img/demo.jpg");
+            background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #131111;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ticket-system {
+    max-width: 400px;
+  }
+  
+  .ticket-system .top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+  .ticket-system .top .title {
+    font-weight: 400;
+    font-size: 1.6em;
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 65px;
+    color: #fff;
+  }
+  .ticket-system .top .printer {
+    width: 100%;
+    height: 20px;
+    border: 5px solid #fff;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 0px rgba(39, 38, 38, 0.337);
+  }
+  .ticket-system .receipts-wrapper {
+    overflow: hidden;
+    margin-top: -1px;
+    padding-bottom: 10px;
+  }
+  .ticket-system .receipts {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transform: translateY(-550px);
+    animation-duration: 1.0s;
+    animation-delay: 300ms;
+    animation-name: print;
+    animation-fill-mode: forwards;
+  }
+  .ticket-system .receipts .receipt {
+    padding: 20px 20px;
+    text-align: left;
+    min-height: 200px;
+    width: 95%;
+    background-color: #fff;
+    border-radius: 0px 0px 20px 20px;
+    box-shadow: 1px 3px 8px 3px rgba(29, 30, 32, 0.426);
+  }
+  
+  .ticket-system .receipts .receipt .route {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+  }
+  
+  .ticket-system .receipts .receipt .route h2 {
+    font-weight: 300;
+    font-size: 2.1em;
+    margin: 0;
+  }
+  .ticket-system .receipts .receipt .details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .ticket-system .receipts .receipt .details .item {
+    display: flex;
+    flex-direction: column;
+    min-width: 70px;
+  }
+  .ticket-system .receipts .receipt .details .item span {
+    font-size: 0.8em;
+    color: rgba(28, 28, 28, 0.7);
+    font-weight: 500;
+  }
+  .ticket-system .receipts .receipt .details .item h3 {
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+  .ticket-system .receipts .receipt.qr-code {
+    height: 180px;
+    min-height: unset;
+    position: relative;
+    border-radius: 0px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .ticket-system .receipts .receipt.qr-code::before {
+    content: "";
+    background: linear-gradient(to left, #fff 50%, #0b0b0b 50%);
+    background-size: 22px 4px, 100% 4px;
+    height: 5px;
+    width: 100%;
+    display: block;
+    left: 0;
+    right: 0;
+    top: 180px;
+    position: absolute;
+    margin: auto;
+  }
+  .ticket-system .receipts .receipt.qr-code .qr {
+    width: 50px;
+    height: 50px;
+    
+  }
+  .ticket-system .receipts .receipt.qr-code .description {
+    margin-left: 20px;
+  }
+  .ticket-system .receipts .receipt.qr-code .description h2 {
+    margin: 0 0 5px 0;
+    font-weight: 500;
+  }
+  .ticket-system .receipts .receipt.qr-code .description p {
+    margin: 0;
+    font-weight: 400;
+  }
+  
+  .confetti-button{
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 70px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.my-button:hover {
+    background-color: #45a049; /* Darker Green */
+}
+
+.button-wrapper canvas {
+    position: absolute;
+    top: 85%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  @@keyframes print {
+    0% {
+      transform: translateY(-550px);
+    }
+    50% {
+      transform: translateY(-185px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+    </style>
+</head>
+
+<body>
+
+    <main class="ticket-system">
+        <div class="top">
+            <h1 class="title">Wait a second, your ticket is being printed</h1>
+            <div class="printer">
+                <div class="receipts-wrapper">
+
+                    <div class="receipts">
+                        <div class="receipt qr-code">
+                            <img src="@Model.BarCodeUrl" height="150" width="150" alt="error">
+                            <div class="description">
+                                <h3>QR-Code generated</h3>
+                                <p>Show QR-code when requested</p>
+                            </div>
+                        </div>
+
+                        <div class="receipt">
+                            <div class="route">
+                                <h2>Event</h2>
+                                <span>@Model.MyEvent.Title</span>
+                            </div>
+                            <div class="details">
+                                <div class="item">
+                                    <span>Name</span>
+                                    <h3>@Model.Name</h3>
+                                </div>
+                                <div class="item">
+                                    <span>Contact No.</span>
+                                    <h3>@Model.MobileNo1</h3>
+                                </div>
+                                <div class="item">
+                                    <span>Email</span>
+                                    <h3>@Model.Email</h3>
+                                </div>
+
+
+                                <div class="item">
+                                    <span>Date Timming</span>
+                                    <h3>@Model.MyEvent.StartDate.ToString()</h3>
+                                </div>
+                                <div class="item">
+                                    <span>Venue</span>
+                                    <h3>@Model.MyEvent.Venue</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </main>
+
+
+</body>
+</html>

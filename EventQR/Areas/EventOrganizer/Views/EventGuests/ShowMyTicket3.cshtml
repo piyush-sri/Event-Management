@@ -1,0 +1,220 @@
+﻿@model EventQR.Models.EventGuest 
+@{
+	Layout = "~/Views/Shared/_blankAdminKitLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Scanner QR</title>
+    <style>
+       @@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	font-family: "Oswald", sans-serif;
+	text-transform: uppercase;
+	--black: rgba(48, 39, 24, 0.8);
+	--beige: #fff2c6;
+	--mustard: #f7d337;
+	--border: 4px solid var(--black);
+	--bkg: rgb(255, 255, 236);
+	color: var(--black);
+	background-color: var(--bkg);
+	margin-top: -15px;
+}
+.alfa {
+	font-family: "Alfa Slab One", sans-serif;
+}
+.ticket {
+	width: 420px;
+	position: relative;
+	cursor: pointer;
+}
+.ticket:hover .ticket-stub {
+	top: -40px;
+}
+
+/* TICKET STUB
+------------------------------------------------- */
+.ticket-stub-gap {
+	position: absolute;
+	top: -1px;
+	left: 50%;
+	z-index: 1;
+	transform: translateX(-50%);
+	width: 102px;
+	height: 102px;
+	border-radius: 50%;
+	background-color: var(--bkg);
+}
+
+.ticket-stub {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	z-index: 2;
+	transform: translate(-50%, 0);
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	display: grid;
+	justify-items: center;
+	align-content: center;
+	grid-template-rows: 20px 20px 0px;
+	font-family: "Alfa Slab One", sans-serif;
+	background-color: var(--mustard);
+	background-image: url("https://www.transparenttextures.com/patterns/cardboard.png");
+	border: var(--border);
+	transition: top 0.3s ease-in-out;
+}
+.ticket-stub h3 {
+	font-size: 16px;
+}
+.ticket-stub h1 {
+	font-size: 26px;
+}
+
+/* TICKET BODY
+------------------------------------------------- */
+.ticket-body {
+	width: 100%;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-rows: min-content;
+	background-color: var(--beige);
+	background-image: url("https://www.transparenttextures.com/patterns/cardboard.png");
+	padding: 0 18px;
+	transform: translateY(50px);
+	overflow: hidden;
+	border: var(--border);
+}
+
+/* Utensils */
+.ticket-body__utensils {
+	display: grid;
+	place-items: center;
+	transform: translateY(-20px);
+}
+.ticket-body__utensils svg {
+	width: 164px;
+	height: 100px;
+	fill: var(--black);
+}
+
+/* Title */
+.ticket-body__title {
+	margin-bottom: 30px;
+	text-align: center;
+}
+.ticket-body__title h1 {
+	font-size: 5em;
+	line-height: 1em;
+}
+.ticket-body__title h2 {
+	font-size: 3.7em;
+	line-height: 0.9em;
+	font-weight: normal;
+}
+.ticket-body__title h3 {
+	font-size: 1.4em;
+	line-height: 1em;
+	letter-spacing: 1px;
+	text-align: center;
+	padding: 5px;
+	margin-top: 10px;
+	background-color: var(--black);
+	color: var(--beige);
+}
+
+/* Events */
+.ticket-body__events {
+	border-top: var(--border);
+	border-bottom: var(--border);
+	padding: 10px 1px;
+	margin-bottom: 30px;
+}
+
+/* VENUE */
+.box-venue {
+	padding: 3px;
+	background-color: var(--mustard);
+	background-image: url("https://www.transparenttextures.com/patterns/cardboard.png");
+	text-align: center;
+	display: grid;
+	grid-template-rows: repeat(3, 25px);
+}
+.qr-code{
+	float: right;
+}
+.QR{
+    font-size: 20px;
+    padding-left: 20px;
+  }
+    </style>
+</head>
+
+<body>
+	<div class="ticket">
+		<div class="ticket-stub-gap"></div>
+		<div class="ticket-stub">
+			<h3>You're</h3>
+			<h3>Invited</h3>
+
+		</div>
+		<div class="ticket-body">
+			<div class="ticket-body__utensils">
+				<svg viewBox="0 0 164 100">
+					<path d="M146.398 50.277h6.27V5.52c0-1.497.546-2.792 1.639-3.885C155.383.56 156.656.017 158.122 0c1.464.017 2.738.559 3.814 1.634 1.093 1.093 1.64 2.388 1.64 3.885v91.719c0 .746-.274 1.394-.82 1.942-.547.546-1.194.82-1.941.82h-1.985c-3.8 0-7.05-1.353-9.755-4.057-2.704-2.706-4.057-5.957-4.057-9.755v-34.53c0-.374.137-.698.41-.971.272-.273.596-.41.97-.41zM9.238 65.148V5.713c0-1.55.565-2.89 1.698-4.021C12.05.578 13.366.018 14.884 0c1.517.017 2.835.577 3.949 1.69 1.132 1.132 1.697 2.473 1.697 4.022v59.435c1.698.595 8.064 6.269 8.064 8.088v23.905c0 .773-.284 1.444-.849 2.01-.566.565-1.237.85-2.01.85-.775 0-1.445-.285-2.01-.85-.567-.567-.85-1.237-.85-2.01V78.554c0-.776-.283-1.445-.849-2.01-.566-.567-1.236-.849-2.01-.849-.775 0-1.445.282-2.01.848-.566.566-.85 1.237-.85 2.01v18.588c0 .773-.283 1.444-.849 2.01-.565.565-1.236.85-2.01.85-.775 0-1.445-.285-2.01-.85-.567-.567-.85-1.237-.85-2.01V78.554c0-.776-.283-1.445-.849-2.01-.566-.567-1.236-.849-2.01-.849-.775 0-1.445.282-2.01.848-.567.566-.85 1.237-.85 2.01v18.588c0 .773-.282 1.444-.848 2.01-.566.565-1.237.85-2.01.85-.776 0-1.446-.285-2.01-.85-.566-.567-.85-1.237-.85-2.01V73.237c0-1.819 7.54-7.493 9.238-8.089z" fill-rule="nonzero" />
+				</svg>
+			</div>
+			<div class="ticket-body__title">
+				<h1 class="alfa">100</h1>
+				<h2>Plates</h2>
+				<h3>Food Festival</h3>
+			</div>
+			<div class="ticket-body__events">
+				<div class="qr-code">
+					<img src="code.png" height="150" width="150" alt="error">
+					<div class="description">
+						<h3 class="QR">Scan QR-Code</h3>
+					</div>
+				</div>
+				<main class="ticket-system">
+					<div class="receipt">
+						<h2><u>Guest Details</u></h2>
+						<br>
+						<div class="details">
+							<div class="item">
+								<h3>Guest Name: Atul Kumar</h3>
+							</div>
+							<div class="item">
+								<h3>Phone: 9876543210</h3>
+							</div>
+							<div class="item">
+								<h3>Start at:  31-05-2024  5 P.M. </h3>
+							</div>
+							<div class="item">
+								<h3>Till:  31-05-2024  10 P.M.</h3>
+							</div>
+							<div class="item">
+								<h3>Location: Anand Nagar, Alambagh, Lucknow</h3>
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+	</div>
+   
+
+</body>
+</html>

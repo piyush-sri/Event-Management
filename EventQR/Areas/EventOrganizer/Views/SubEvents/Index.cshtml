@@ -1,0 +1,71 @@
+﻿@model IEnumerable<EventQR.Models.SubEvent>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventSubEvents";
+    string ticketLink;
+}
+@await Html.PartialAsync("_eventPartial")
+
+
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+
+            <p>
+                
+                <a class ="float-right" asp-action="Create"> <button type="button" class="btn btn-primary">Create New</button></a>
+            </p>
+            <table class="table " id="tblGuestList">
+
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubEventName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartDateTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndDateTime)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td> @Html.DisplayFor(modelItem => item.SubEventName) </td>
+                            <td> @String.Format("{0:dd-MM-yyyy hh:mmtt}", item.StartDateTime.Value) </td>
+                            <td> @String.Format("{0:dd-MM-yyyy hh:mmtt}", item.EndDateTime.Value) </td>                            
+                     <td>
+                                
+                                <a asp-action="Create" asp-route-id="@item.UniqueId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblGuestList').DataTable()
+
+        });
+    </script>
+}

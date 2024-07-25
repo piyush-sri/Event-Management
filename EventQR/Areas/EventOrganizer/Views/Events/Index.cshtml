@@ -1,0 +1,67 @@
+﻿@model IEnumerable<EventQR.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "Events";
+
+}
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <a class="float-right" asp-action="Create"> <button type="button" class="btn btn-primary">Create New</button></a>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="example1">
+                    <thead>
+                        <tr>
+                            <th> @Html.DisplayNameFor(model => model.Title) </th>
+                            <th> @Html.DisplayNameFor(model => model.Duration) </th>
+                            <th> @Html.DisplayNameFor(model => model.DaysToGo) </th>
+                            <th> Starting On </th>
+                            <th> @Html.DisplayNameFor(model => model.Status) </th>
+                            <th> @Html.DisplayNameFor(model => model.IsSubEvents) </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+@*                             <tr onclick="window.open('/EventOrganizer/Events/Details/@item.UniqueId')">
+ *@                            <tr onclick="window.location.href = '/EventOrganizer/Events/Details/@item.UniqueId'">
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                    <p class="text-sm">@item.Venue</p>
+                                </td>
+                                <td> @Html.DisplayFor(modelItem => item.Duration) </td>
+                                <td> @Html.DisplayFor(modelItem => item.DaysToGo) </td>
+                                <td> @item.StartDate?.ToString("dd/MM/yyyy hh:mmtt") </td>
+                                <td> @Html.DisplayFor(modelItem => item.Status) </td>
+                                <td> @Html.DisplayFor(modelItem => item.IsSubEvents) </td>
+                                <td>
+                                    <a asp-action="Create" asp-route-id="@item.UniqueId">Edit</a> |
+                                    @if (item.IsSubEvents)
+                                    {
+                                        <a href="/EventOrganizer/SubEvents/Index?eventId=@item.UniqueId">Sub Event</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example1').DataTable();
+        });
+    </script>
+}

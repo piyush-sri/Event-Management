@@ -1,0 +1,103 @@
+﻿@model EventQR.Models.Organizer 
+
+@{
+    ViewData["Title"] = "MyProfile";
+     Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "MyProfile";
+  EventQR.Models.Organizer thisEvent = ViewBag.ActiveEvent;
+}
+<style>
+    .ed {
+        margin-left: 15px;
+        font-size: 19px;
+    }
+</style>
+
+
+<div class="row">
+    
+    <div class="col-sm-12">
+        <div class="content">
+            <div class="card border border-1">
+                <div class="card-header ">
+                    <h4 style="text-align:center"><b>My Profile</b></h4>
+                    <hr />
+                    <dl class="row">
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.OrganizationName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.OrganizationName)
+                        </dd>
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Phone1)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Phone1)
+                        </dd>
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Phone2)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Phone2)
+                        </dd>
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Website)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Website)
+                        </dd>
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.OfficeAddress)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.OfficeAddress)
+                        </dd>
+
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.CreatedDate)
+                        </dd>
+
+                       <dd class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.LastUpdatedDate)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.LastUpdatedDate)
+                        </dd>
+
+
+                    </dl>
+                </div>
+                <div>
+                    <a asp-action="Edit" class="ed" asp-route-id="@Model?.UniqueId">Edit</a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+   
+</div>
+
+
+
+
+
+
+
+

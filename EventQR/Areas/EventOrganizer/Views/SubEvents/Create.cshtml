@@ -1,0 +1,42 @@
+﻿@model EventQR.Models.SubEvent
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventSubEvents";
+}
+@await Html.PartialAsync("_eventPartial")
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+                     <form asp-action="Create">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="UniqueId" type="hidden" />
+                        <input asp-for="EventId" type="hidden" />
+                    <div class="form-group col-md-4">
+                            <label asp-for="SubEventName" class="control-label">Sub Event Name </label>
+                            <input asp-for="SubEventName" class="form-control" />
+                            <span asp-validation-for="SubEventName" class="text-danger"></span>
+                        </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="StartDateTime" class="control-label">Start Date Time</label>
+                        <input asp-for="StartDateTime"  id="start-date" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"  class="form-control"
+                               />
+                        <span asp-validation-for="StartDateTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EndDateTime" class="control-label">EndDateTime</label>
+                        <input asp-for="EndDateTime" id="end-date" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" class="form-control"/>
+                            <span asp-validation-for="EndDateTime" class="text-danger"></span>
+                        </div>
+                    <div class="form-group col-md-12">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                </div>
+            </form>
+            <div>
+                <a asp-action="Index">&laquo; Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

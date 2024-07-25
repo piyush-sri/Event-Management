@@ -1,0 +1,50 @@
+﻿@model EventQR.Models.Event
+
+@{
+    
+    Layout = "~/Views/Shared/_TicketScannerLayout.cshtml";
+    // ViewBag.activeTabName = "_TokenScannerLayout";
+
+}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 style="text-align:center">Event Details</h4>
+                    <div class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.EvenOrganizer)
+                        </dt>
+
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.EvenOrganizer.OrganizationName)
+                        </dd>
+                    </div>
+                    <div class="row">
+
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Venue)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Venue)
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.CreatedDate.ToString("dd/MMM/yyyy h:mm tt")
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.CreatedDate.ToString("dd/MMM/yyyy h:mm tt")
+                        </dd>
+                    </div>
+           
+      </div>
+  </div>
+  </div>

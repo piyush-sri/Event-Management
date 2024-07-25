@@ -1,0 +1,16 @@
+﻿@model IEnumerable<EventQR.Models.SubEvent>
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+    ViewBag.activeTabName = "Reports";
+
+}
+ 
+            <select class="dropdown " style="width:28em;height:3em" id="Reports" name="subEventlist">
+                @foreach (var item in Model)
+                {
+                    <option> @item.SubEventName </option>
+                }
+
+            </select>
+             

@@ -1,0 +1,54 @@
+﻿@model EventQR.Models.Event
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_TicketScannerLayout.cshtml";
+}
+
+
+<div class="container">
+    <div class="sidebar-left"></div>
+    <div class="main-content">
+        <div class="alert alert-dark col-md-6 col-lg-4 mb-4" role="alert">EvenOrganizer... @Model.EvenOrganizer </div>
+        <div class="alert alert-dark col-md-6 col-lg-4 mb-4" role="alert">Title...@Model.Title </div>
+        <div class="alert alert-dark col-md-6 col-lg-4 mb-4" role="alert">Description...@Model.Description </div>
+        <div class="alert alert-dark col-md-6 col-lg-4 mb-4" role="alert"> venue name...@Model.Venue </div>
+    </div>
+    <div class="sidebar-right"></div>
+
+         <h1> Guest list</h1>
+    <div class="container">
+    <div class="card">
+
+    <table>
+        @foreach (var guest in Model.Guests)
+        {
+            <tr>
+                <td>@guest.Name </td>
+                <td>@guest.Email </td>
+                <td>@guest.MobileNo1 </td>
+            </tr>
+        }
+    </table>
+    </div>
+    </div>
+   
+
+
+        <h1> subevent list</h1>
+    <div class="container">
+        <div class="card">
+    <table>
+        @foreach (var subE in Model.SubEvents)
+        {
+            <tr>
+                <td>@subE.SubEventName </td>
+                <td>@subE.StartDateTime </td>
+                <td>@subE.EndDateTime </td>
+            </tr>
+        }
+    </table>
+</div>
+</div>
+</div>
+
+

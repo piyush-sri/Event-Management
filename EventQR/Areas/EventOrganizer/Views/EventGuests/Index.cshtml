@@ -1,0 +1,126 @@
+﻿@model IEnumerable<EventQR.Models.EventGuest>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventGuests"; 
+    bool isGuestExcelUploadSuccess = false;
+    if (TempData["GuestListUploadSuccess"] != null)
+    {
+        isGuestExcelUploadSuccess = (bool)TempData["GuestListUploadSuccess"];
+    }
+}@await Html.PartialAsync("_eventPartial")
+
+<style>
+    .input-group .form-control {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group .btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+</style>
+
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+
+<div class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h3> Upload Guest List </h3>
+                </div>
+                @if (isGuestExcelUploadSuccess == true)
+                {
+                    <div class="alert-success"> Record Updated Successfully </div>
+                }
+                <div class="col-md-12">
+                    <form method="post" asp-controller="EventGuests" asp-action="Import" enctype="multipart/form-data" class="d-flex align-items-center gap-2">
+
+                        <div class="col-md-4">
+                            <div class="input-group">
+
+                                <a href="~/guestlistsample.xlsx" target="_blank" class="btn btn-success">Download Sample </a>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="input-group">
+                                <input type="file" name="file" required class="form-control" id="fileInput">
+                                <button type="submit" class="btn btn-success" id="submitButton">Submit</button>
+
+
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+                <div class="col-md-12 text-right">
+                    <a href="/EventOrganizer/EventGuests/Create" class="btn btn-primary">
+                        Add New
+                    </a>
+                </div>
+            </div>
+
+            <br>
+            <table class="table" id="tblGuestList">
+                <thead>
+                    <tr>
+                        <th>  @Html.DisplayNameFor(model => model.Name) </th>
+                        <th> @Html.DisplayNameFor(model => model.MobileNo1) </th>
+                        <th>  @Html.DisplayNameFor(model => model.MobileNo2) </th>
+                        <th>   @Html.DisplayNameFor(model => model.Email) </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td> @Html.DisplayFor(modelItem => item.Name) </td>
+                            <td> @Html.DisplayFor(modelItem => item.MobileNo1) </td>
+                            <td> @Html.DisplayFor(modelItem => item.MobileNo2) </td>
+                            <td> @Html.DisplayFor(modelItem => item.Email) </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Create" asp-route-id="@item.UniqueId" class="btn btn-sm btn-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.UniqueId" class="btn btn-sm btn-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.UniqueId" class="btn btn-sm btn-danger">Delete</a>
+                                    <a asp-action="ShowMyTicket" asp-route-guestId="@item.UniqueId" asp-route-eventId="@item.EventId" target="_blank" class="btn btn-sm btn-secondary">Ticket</a>
+                                    <a asp-action="Invitation" asp-route-guestId="@item.UniqueId" asp-route-eventId="@item.EventId" target="_blank" class="btn btn-sm btn-warning">Invitation</a>
+                                    <a href="/Scanner/CheckIn/AllowGuest/@EventQR.Common.Static.Variables.Encrypt(@item.UniqueId + "," + @item.EventId)" target="_blank" class="btn btn-sm btn-success">Scan QR</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblGuestList').
+                                                                ({
+                "pageLength": 50
+            });
+
+        });
+    </script>
+}

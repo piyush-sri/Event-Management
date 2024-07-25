@@ -1,0 +1,243 @@
+﻿@model EventQR.Models.EventGuest
+@{
+    Layout = null;
+}
+
+@* <!DOCTYPE html>
+<html>
+<head>
+    <title>Invitation Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            text-align: center;
+        }
+
+        .card {
+            width: 300px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .date-time {
+            color: #555;
+        }
+
+        .location {
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>You're Invited!</h1>
+        <p>Join us for a special event</p>
+        <br /> <u class="text-bold">@Model.MyEvent.Title</u>
+        <br />   <i class="text-bold">@Model.MyEvent.Description</i>
+        <p class="date-time">Start At  : [ @Model.MyEvent.StartDate.ToString() ]</p>
+        <p class="date-time">Till  : [ @Model.MyEvent.EndDate.ToString() ]</p>
+        <p class="location">Location: [ @Model.MyEvent.Venue ]</p>
+        <hr /><b>Guest Details </b>
+        <p class="location">Guest Name:   @Model.Name  </p>
+        <p class="location">Phone :   @Model.MobileNo1  </p>
+        <a asp-action="ShowMyTicket" asp-route-guestId="@Model.UniqueId" asp-route-eventId="@Model.EventId" target="_blank"><i class="fa-solid fa-ticket center"></i>View Ticket  </a>
+    </div>
+</body>
+</html>
+
+ *@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EventQR</title>
+    
+    <style>
+        * {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    font-family: "Ubuntu", sans-serif;
+    background-color: cornflowerblue;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #1c1c1c;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ticket-system {
+    max-width: 400px;
+  }
+  .ticket-system .top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 130px;
+  }
+  .ticket-system .top .printer {
+    width: 100%;
+    height: 20px;
+    border: 4px solid #fff;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  }
+  .ticket-system .receipts-wrapper {
+    overflow: hidden;
+    margin-top: -10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .ticket-system .receipts {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transform: translateY(-510px);
+    animation-duration: 2.0s;
+    animation-delay: 300ms;
+    animation-name: print;
+    animation-fill-mode: forwards;
+  }
+  .ticket-system .receipts .receipt {
+    padding: 5px 30px;
+    text-align: left;
+    min-height: 200px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .ticket-system .receipts .receipt .route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+  }
+  .ticket-system .receipts .receipt .route h2 {
+    font-weight: 300;
+    font-size: 2.2em;
+  }
+  .ticket-system .receipts .receipt .details .item span {
+    font-size: 1.0em;
+    color: rgba(28, 28, 28, 0.7);
+    font-weight: 600;
+  }
+  .ticket-system .receipts .receipt .details .item h3 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    
+  }
+  .ticket-system .receipts .receipt.qr-code {
+    height: 100px;
+    min-height: unset;
+    position: relative;
+    border-radius: 0px 0px 20px 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .ticket-system .receipts .receipt.qr-code .qr {
+    width: 70px;
+    height: 70px;
+  }
+  .ticket-system .receipts .receipt.qr-code .description {
+    margin-left: 20px;
+  }
+  .ticket-system .receipts .receipt.qr-code .description h2 {
+    margin: 0 0 5px 0;
+    font-weight: 700;
+  }
+  .ticket-system .receipts .receipt.qr-code .description p {
+    margin: 0;
+    font-weight: 400;
+  }
+  a{
+    font-size: 16px;
+    color: #3c52fb;
+    padding-left: 50px;
+  }
+  @@keyframes print {
+    0% {
+      transform: translateY(-510px);
+    }
+    
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+    </style>
+</head>
+
+
+<body>
+    <main class="ticket-system">
+        <div class="top">
+            <div class="printer" />
+        </div>
+        <div class="receipts-wrapper">
+            <div class="receipts">
+                <div class="receipt">
+                    <h2><u>Guest Details</u></h2>
+                    <div class="details">
+                        <div class="item">
+                            <span>Guest Name</span>
+                            <h3>@Model.Name </h3>
+                        </div>
+                        <div class="item">
+                            <span>Phone</span>
+                            <h3>@Model.MobileNo1</h3>
+                        </div>
+                        <div class="item">
+                            <span>Start at:</span>
+                            <h3> [ @Model.MyEvent.StartDate.ToString() ]</h3>
+                        </div>
+                        <div class="item">
+                            <span>Till:</span>
+                            <h3> [ @Model.MyEvent.EndDate.ToString() ]</h3>
+                        </div>
+                        <div class="item">
+                            <span>Venue</span>
+                            <h3>[ @Model.MyEvent.Venue ]</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="receipt qr-code">
+                    <div class="description">
+                        <h2>You're Invited!</h2>
+                        <p>Join us for a special event</p>
+                        <a asp-action="ShowMyTicket" asp-route-guestId="@Model.UniqueId" asp-route-eventId="@Model.EventId" target="_blank"><i class="fa-solid fa-ticket center"></i>View Ticket  </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

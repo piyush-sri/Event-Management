@@ -1,0 +1,143 @@
+﻿@model EventQR.Models.Event
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "Events";
+}
+<style>
+    #ticketImage {
+        display: none;  
+        margin-top: 20px;
+        width: 200px;  
+        height: 130px; 
+        border: 1px solid #ddd;  
+        padding: 5px;  
+        border-radius: 4px;  
+    }
+
+</style>
+<div class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3>Create New Event</h3>
+            <hr />
+            <form asp-action="Create">
+                <div class="col-md-12">
+                    <div asp-validation-summary=All class="text-danger"></div>
+                    <input type="hidden" asp-for="UniqueId" />
+                    <input type="hidden" asp-for="EventOrganizerId" />
+                    <input type="hidden" asp-for="CreatedDate" />
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label asp-for="Title" class="control-label">Event Title </label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="StartDate" class="control-label">Start Date Time</label>
+                        <input asp-for="StartDate" asp-format="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" id="start-date" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EndDate" class="control-label">EndDateTime</label>
+                        <input asp-for="EndDate" asp-format="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" id="end-date" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+             
+                <div class="row">
+                    <div class="col-md-6  form-group">
+                        <label asp-for="Venue" class="control-label"> Venue (Address) </label>
+                        <textarea asp-for="Venue" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Venue" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label asp-for="TicketViewName" class="control-label">TicketViewName</label>
+                        <select asp-for="TicketViewName" class="form-control" id="ticketViewSelect">
+                            <option>--Select option--</option>
+                            @foreach (var ticket in EventQR.Common.Static.Variables.TicketViewNamesList)
+                            {
+                                <option value="@ticket">@ticket</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group"></div>
+                    <div class="col-md-4 form-group">
+                        <img id="ticketImage" src="" alt="Ticket Image" class="img-responsive img-thumbnail" />
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-sm-12 form-group">
+                        <label asp-for="IsSubEvents" class="control-label">  Include Sub Events </label><br />
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <input class="form-check-input" asp-for="IsSubEvents" onchange="CheckIfMealsIncluded(this)" type="checkbox">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Yes
+                        </label>
+                    </div>
+
+
+
+                </div>
+                <br /><hr />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group text-center">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#ticketViewSelect').change(function () {
+            var selectedValue = $(this).val();
+
+            if (selectedValue !== "--Select option--") {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("TicketShow", "Report", new { area = "EventOrganizer" })',
+                    data: { ticketName: selectedValue },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#ticketImage').attr('src', response.imageUrl);
+                            $('#ticketImage').show();
+                        } else {
+                            console.error(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                $('#ticketImage').hide();
+            }
+        });
+    });
+</script>

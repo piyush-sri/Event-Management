@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EventQR.Models.EventGuest>
+
+@{
+
+    Layout = "~/Views/Shared/_TicketScannerLayout.cshtml";
+    // ViewBag.activeTabName = "_TokenScannerLayout";
+
+}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 style="text-align:center">Guest List</h4>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>MobileNo1</th>
+                    <th>Address</th>
+                    <th>SubEvents</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.MobileNo1</td>
+                        <td>@item.Address</td>
+                        <td>@item.AllowedSubEventsIdsCommaList.Split(',').Count()</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</div>

@@ -1,0 +1,47 @@
+﻿changeLogInId
+@model EventQR.Models.Organizer
+
+@{
+    ViewData["Title"] = "ChangeLoginId";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "ChangeLoginId";
+    EventQR.Models.Organizer thisEvent = ViewBag.ActiveEvent;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Login Id</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row-md-15">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2>Change Login Id</h2>
+                    </div>
+                    <form asp-action="ChangeLogInId" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+                            <div class="col-sm-12">
+                                <label for="existingLoginId">Existing Login Id:</label><br>
+                                <input type="text" id="existingLoginId" name="existingLoginId" placeholder="Existing Login Id" class="form-control" required><br><br>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="newLoginId">New Login Id:</label><br>
+                                <input type="text" id="newLoginId" name="newLoginId" placeholder="New Login Id" class="form-control" required><br><br>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="submit" class="btn btn-info" value="Update">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

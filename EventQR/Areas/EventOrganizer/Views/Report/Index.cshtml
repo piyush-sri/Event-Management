@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EventQR.Models.Event>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "Reports";
+
+}
+
+<div class="content">
+    <div class="card"> 
+        <div class="card-body" style="width:500px;height:600px">
+
+            <div class="row">
+                <div class="col-6">
+                    <select onchange="loadSubEventsDDL(this)" style="width:28em;height:3em" id="Reports" name="Eventlist">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.UniqueId"> @item.Title | @item.StartDate.Value.ToString("dd/MMM/yyyy") </option>
+                        }
+                    </select>
+                </div>
+                <div id="subevents" class="col-6">subevents</div>
+             </div>
+
+ 
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        function loadSubEventsDDL(thisObj) {
+
+            var eventId = $(thisObj).val();
+
+            $.ajax({
+                url: '/EventOrganizer/SubEvents/GetSubEventsDDLPartial/' + eventId,
+                type: "GET",
+                async: true,
+                cache: false,
+                success: function (data) {
+                    $("#subevents").html(data);
+                   },
+                error: function (error) {
+                    console.log(`Error ${error}`);
+                }
+            });
+        }
+    </script>
+}

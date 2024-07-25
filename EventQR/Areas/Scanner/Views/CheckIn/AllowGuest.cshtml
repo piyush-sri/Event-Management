@@ -1,0 +1,63 @@
+﻿@model EventQR.Models.GuestCheckIn
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_TicketScannerLayout.cshtml";
+    string classNameToDisabled = "disabled-clickable";
+}
+
+@await Html.PartialAsync("_eventPartial");
+<style>
+    .disabled-clickable {
+        position: relative;
+        opacity: 0.5;
+        pointer-events: none;             /* Disables interaction */
+        background-color: #e9ecef;      /* Light gray background */
+        color: #6c757d;                 /* Gray text */
+        border: 1px solid #ced4da;      /* Border to indicate a form-like element */
+        padding: 1rem;                    /* --------------------------------------------------- */                                                  
+        cursor: not-allowed;              /* Show not-allowed cursor */
+        border-radius: 0.25rem;           /* Rounded corners */
+    }
+</style>
+<div class="container  text-center">
+    <form asp-action="AllowGuest">
+        <input type="hidden" asp-for="@Model.EventId" name="eventId" />
+        <input type="hidden" asp-for="@Model.GuestId" name="GuestId" />
+        @if (Model.Guest.SubEvents != null)
+        {
+            foreach (var subEvent in Model.Guest.SubEvents)
+            {
+                var attendedThis = Model.Guest.CheckInDetails.Where(c => c.SubEventId.Equals(subEvent.UniqueId)).FirstOrDefault();
+                if (attendedThis == null)
+                { classNameToDisabled = string.Empty; }
+                else { classNameToDisabled = "disabled-clickable"; }
+                <div class="card @classNameToDisabled">
+                    <div class="card-body">
+                        <h5 class="card-title">Events</h5>
+                        <ul>
+                            <li> @subEvent.SubEventName</li>
+                            <li> @subEvent.CreatedDate</li>
+                            <li> @subEvent.EndDateTime</li>
+                        </ul>
+                        @if (attendedThis == null)
+                        {
+                            <input class="btn" value="@subEvent.UniqueId" name="subEventId" type="radio" /> 
+                        }
+                        else
+                        {
+                            <input disabled="disabled" class="btn" value="@subEvent.UniqueId" name="subEventId" type="radio" />
+                            <p> Checked-In @@ @attendedThis.CheckIn.ToString("dd/MMM/yyyy");</p>
+                        }
+                    </div>
+                </div>
+                <br />
+            }
+        }
+        else
+        {
+            <p> No Invitation Found, Please contact organizer.</p>
+        }
+        <input type="submit" class="btn btn-primary" value="submit">
+    </form>
+</div> 

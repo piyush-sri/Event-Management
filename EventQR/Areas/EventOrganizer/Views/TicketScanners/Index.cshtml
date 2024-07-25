@@ -1,0 +1,92 @@
+﻿@model IEnumerable<EventQR.Models.TicketScanner>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventScanner"; 
+}
+
+@await Html.PartialAsync("_eventPartial")
+
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+
+<div class="content">
+   
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-12"><h4>Ticket Scanner Account</h4>
+
+                    <button type="button" class="btn btn-primary float-right"><a asp-action="Create"><font color="white">Create New</font></a></button>
+                    </div>
+              
+            </div>
+            <br>
+<table class="table" id="tblGuestList">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfirmPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedData)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastUpdatedData)
+            </th>
+            <th> Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConfirmPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedData)
+                                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdatedData)
+            </td>
+            <td>
+@*                 <a asp-action="Create" asp-route-id="@item.UniqueId">Edit</a> |
+ *@                <a asp-action="Details" asp-route-id="@item.UniqueId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UniqueId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblGuestList').DataTable()
+
+        });
+    </script>
+}

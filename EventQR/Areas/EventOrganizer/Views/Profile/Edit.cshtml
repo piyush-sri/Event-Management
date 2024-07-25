@@ -1,0 +1,125 @@
+﻿@model EventQR.Models.Organizer
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "MyProfile";
+
+    var profilePicUrl = $"{EventQR.Common.Static.Variables.OrgProfilePicsPath}/{Model.ProfileImageName}";
+    var logoUrl = $"{EventQR.Common.Static.Variables.OrgLogoPath}/{Model.LogoImageName}";
+
+
+    ViewBag.ProfileImageName = Model.ProfileImageName;
+    ViewBag.LogoImageName = Model.LogoImageName;
+}
+
+
+<style>
+    #imagePreview {
+        max-width: 100%;
+        max-height: 200px;
+        margin: 10px 0;
+    }
+</style>
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+
+
+
+            <h4>MY Profile</h4>
+            <hr />
+            <form method="post" asp-action="Edit" enctype="multipart/form-data">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UniqueId" />
+                    <input type="hidden" asp-for="OrganizerUserId" />
+
+                    <input type="hidden" asp-for="LogoImageName" />
+                    <input type="hidden" asp-for="ProfileImageName" />
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label asp-for="Phone1" class="control-label"></label>
+                                <input asp-for="Phone1" class="form-control" />
+                                <span asp-validation-for="Phone1" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label asp-for="Phone2" class="control-label"></label>
+                                <input asp-for="Phone2" class="form-control" />
+                                <span asp-validation-for="Phone2" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input readonly="readonly" asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>         
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label asp-for="OrganizationName" class="control-label"></label>
+                                <input asp-for="OrganizationName" class="form-control" />
+                                <span asp-validation-for="OrganizationName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group  col-md-12">
+                                <label asp-for="Website" class="control-label"></label>
+                                <input asp-for="Website" class="form-control" />
+                                <span asp-validation-for="Website" class="text-danger"></span>
+                            </div>
+                            <div class="form-group  col-md-12">
+                                <label asp-for="OfficeAddress" class="control-label"></label>
+                                <input asp-for="OfficeAddress" class="form-control" />
+                                <span asp-validation-for="OfficeAddress" class="text-danger"></span>
+                            </div>
+                            <div class="form-group   col-md-12 text-center">
+                                <input type="submit" value="Save" class="btn btn-primary full-wid mt-4 " />
+                                <a asp-action="MyProfile" class="btn mt-1">Back to Profile</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="row text-center">
+                            <div class="form-group  col-md-12">
+
+                                <img src="@logoUrl" id="SelectProfileImage" class="rounded img-thumbnail" alt="image-preview" style="width:8em" />
+                                <input type="file" asp-for="LogoImage" onchange="document.getElementById('SelectProfileImage').src=window.URL.createObjectURL(this.files[0])" />
+                                <br />
+                                <label asp-for="LogoImage" class="control-label">Select Logo Image </label>
+                            </div>
+                            <div class="form-group  col-md-12">
+                                <img src="@profilePicUrl" id="imagePreview" class="rounded img-thumbnail" alt="logo" style="width:8em" />
+                                <input type="file" asp-for="ProfileImage" onchange="document.getElementById('imagePreview').src=window.URL.createObjectURL(this.files[0])" />
+                                <br />
+                                <label asp-for="ProfileImage" class="control-label">Select Profile Pic</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+            @section Scripts {
+                @{
+                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                }
+            }
+
+
+        </div>
+    </div>
+</div>
+
+

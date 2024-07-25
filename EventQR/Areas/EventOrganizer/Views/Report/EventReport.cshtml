@@ -1,0 +1,134 @@
+﻿@model EventQR.ViewModels.Reports.EventReportVM
+
+@{
+    ViewData["Title"] = "EventReport";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "Reports";
+}
+
+@await Html.PartialAsync("_eventPartial")
+
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<div id="body">
+    <style>
+        table {
+            border: none; /* Remove table border */
+        }
+
+        th, td {
+            padding: 8px; /* Adjust padding as needed */
+            border: 1px solid #ddd; /* Add thin border to cells */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f9fafc; /* Light background for odd rows */
+        }
+
+        .date-time {
+            font-size: 0.7em;
+            color: gray;
+        }
+
+        tr.checked-in {
+            background-color: #dff0d8; /* Greenish background for checked-in rows */
+        }
+
+        .date-time {
+        }
+
+    </style>
+
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4 class="a">Events Report</h4>
+                    </div>
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" onclick="downloadPdf()">Download Pdf</button>
+                        <input type="hidden" id="eventId" value="@Model.EventId" />
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <table class="table" id="tblGuestList">
+                        <thead>
+                            <tr>
+                                <th style="width:100px;">Guest Name</th>
+                                @foreach (var e in Model.SubEvents)
+                                {
+                                    <th style="width:150px;">@e.SubEventName</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var g in Model.Guests)
+                            {
+                                <tr>
+                                    <td>@g.Name</td>
+                                    @foreach (var se in Model.SubEvents)
+                                    {
+                                        var mySe = g.MySubEvents.FirstOrDefault(mse => mse.SubEventId == se.SubEventId);
+                                        if (mySe != null)
+                                        {
+                                            var checkInGuest = g.dbCheckIn
+                                            .Where(s => s.GuestId == g.GuestId && s.SubEventId == mySe.SubEventId)
+                                            .Select(s => s.CheckIn)
+                                            .SingleOrDefault();
+
+                                            <td>
+                                                @if (checkInGuest != null && checkInGuest != DateTime.MinValue)
+                                                {
+                                                    <b>CheckIn/</b>
+                                                    <span class="date-time" style="color:green;display:none;">
+                                                        @checkInGuest.ToString("MM/dd/yyyy")
+                                                    </span>
+                                                    <span style="color:green;">@checkInGuest.ToString("hh:mmtt")</span>
+                                                }
+                                                else
+                                                {
+                                                    <b>Invited/</b>
+                                                    <i style="color:red;">No CheckIn</i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>Not Invited</td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tblGuestList').DataTable({
+                scrollX: true,
+                fixedColumns: {
+                    leftColumns: 1
+                }
+            });
+        });
+
+        var downloadPdf = () => {
+            var eventId = document.getElementById('eventId').value;
+            window.location.href = `/EventOrganizer/Report/PdfReport?eventId=${eventId}`;
+        };
+    </script>
+
+}

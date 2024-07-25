@@ -1,0 +1,152 @@
+﻿@model EventQR.Models.EventGuest 
+@{ 
+    Layout = "~/Views/Shared/_blankAdminKitLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conference Event</title>
+    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <style>
+        body {
+            background-color: Thistle;
+            font-family: "Yanone Kaffeesatz", sans-serif;
+            font-weight: 600;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .ticket {
+            width: 425px;
+            height: 700px;
+            background-color: white;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .qr-code {
+            float: right;
+        }
+
+        .holes-top {
+            height: 50px;
+            width: 50px;
+            background-color: Thistle;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            margin-left: -25px;
+            top: -25px;
+        }
+
+            .holes-top:before, .holes-top:after {
+                content: "";
+                height: 50px;
+                width: 50px;
+                background-color: Thistle;
+                position: absolute;
+                border-radius: 50%;
+            }
+
+            .holes-top:before {
+                left: -200px;
+            }
+
+            .holes-top:after {
+                left: 200px;
+            }
+
+        .title {
+            padding: 50px 25px 10px;
+        }
+
+        .cinema {
+            color: #111010;
+            font-size: 50px;
+        }
+
+        .movie-title {
+            font-size: 28px;
+            color: #646363;
+        }
+
+        .info {
+            padding: 7px 30px;
+        }
+
+        .receipt {
+            font-size: 25px;
+        }
+
+        .QR {
+            font-size: 23px;
+            padding-left: 23px;
+        }
+
+        .details {
+            font-weight: 350;
+            line-height: 32px;
+        }
+    </style>
+</head>
+
+<body>
+
+        <div class="ticket">
+            <div class="holes-top"></div>
+            <div class="title">
+                <p class="cinema">You're Invited</p>
+                <p class="movie-title">Join us for a special event!</p>
+            </div>
+            <div class="poster">
+                <img src="party.jpg" alt="Error" />
+            </div>
+            <div class="info">
+                <div class="qr-code">
+                    <img src="code.png" height="140" width="140" alt="error">
+                    <div class="description">
+                        <p class="QR">Scan QR-code</p>
+                    </div>
+                </div>
+                <main class="ticket-system">
+                    <div class="receipts-wrapper">
+                        <div class="receipts">
+                            <div class="receipt">
+                                <h1><u>Guest Details</u></h1>
+                                <br>
+                                <div class="details">
+
+                                    <div class="item">
+                                        <h3><u>Guest Name-</u> Rajendra Prasad</h3>
+                                    </div>
+                                    <div class="item">
+                                        <h3><u>Phone-</u> 9876543210</h3>
+                                    </div>
+                                    <div class="item">
+
+                                        <h3><u>Start at-</u> 5 P.M. </h3>
+                                    </div>
+                                    <div class="item">
+
+                                        <h3><u>Till-</u> 10 P.M.</h3>
+                                    </div>
+                                    <div class="item">
+
+                                        <h3><u>Location-</u> Anand Nagar Alambagh, Lucknow</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <div class="holes-lower"></div>
+        </div>
+</body>
+</html>

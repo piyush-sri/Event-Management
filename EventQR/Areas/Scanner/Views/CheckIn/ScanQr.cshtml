@@ -1,0 +1,41 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_TicketScannerLayout.cshtml";
+    // ViewBag.activeTabName = "_TokenScannerLayout";
+
+}
+<div class="container camera-container">
+    <h4 style="text-align:center">Scan QR Code</h4>
+    <video id="cameraFeed" autoplay playsinline class="mx-auto d-block"></video>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const cameraFeed = document.getElementById('cameraFeed');
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+            // Attach the stream to the video element to display the camera feed
+            cameraFeed.srcObject = stream;
+        } catch (error) {
+            console.error('Error accessing camera:', error);
+        }
+    });
+</script>
+
+<style>
+    .camera-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    #cameraFeed {
+        width: 100%;
+        max-width: 600px;
+        margin-top: 20px;
+    }
+</style>

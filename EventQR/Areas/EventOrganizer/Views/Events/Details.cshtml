@@ -1,0 +1,172 @@
+﻿ @model EventQR.Models.Event
+@{
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEvent";
+
+}
+<div class="container">
+    <div class="row" >
+       
+        <div class="col-md-7" style="margin-top:10px">
+            <div class="main-content">
+                <div class="card mb-3">
+                    <div class="card-header bg-danger text-white">
+                        Event Details
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-3 font-weight-bold">Event Name:</div>
+                            <div class="col-sm-9">@Model.Title</div>
+                        </div>
+                        <div class="row mb-2">                              
+                            <div class="col-sm-3 font-weight-bold">Description:</div>
+                            <div class="col-sm-9">@Model.Description</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-3 font-weight-bold">Venue:</div>
+                            <div class="col-sm-9">@Model.Venue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="sidebar-left">
+                <!-- Sidebar content (if any) can go here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="info-widget-text row">
+                        <div class="col-sm-6 pull-left "><span>Start Date</span></div>
+                        <div class="col-sm-6 pull-right text-danger ">@Model.StartDate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="info-widget-text row">
+                        <div class="col-sm-6 pull-left "><span>End Date</span></div>
+                        <div class="col-sm-6 pull-right text-right ">@Model.EndDate.ToString()</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="info-widget-text row">
+                            <div class="col-sm-6 pull-left "><span>Duration</span></div>
+                            <div class="col-sm-6 pull-right text-right ">@Model.Duration</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 m-b-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="info-widget-text row">
+                        <div class="col-sm-6 pull-left "><span>Day to Go</span></div>
+                        <div class="col-sm-6 pull-right text-right ">@Model.DaysToGo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="info-box">
+                <div class="card-header">
+                    <h5 class="card-title">Sub Events</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sub Events Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Total Guests </th>
+                                <th>Attended Guests </th>
+
+
+                            </tr>
+                        </thead>
+                        @if (Model.SubEvents != null)
+                        {
+                            <tbody>
+                                @foreach (var x in Model.SubEvents)
+                                {
+                                    <tr data-toggle="modal" data-target="#exampleModalCenter" onclick="return loadGuestListForSubEvent('@x.UniqueId')">
+                                        <td>@x.SubEventName</td>
+                                        <td>@x.StartDateTime</td>
+                                        <td>@x.EndDateTime</td>
+                                        <td>@x.TotalGuests</td>
+                                        <td>@x.AttendedGuests</td>
+                                    </tr>
+                                }
+                            </tbody>
+                         }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Guests </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="subEventGuests">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<script type="text/javascript">
+    function loadGuestListForSubEvent(subEventId) 
+    {
+         $.ajax({
+            url: '/EventOrganizer/SubEvents/GetSubEventGuests/' + subEventId,
+            type: "GET",
+            async: true,
+            cache: false,  
+            success: function (data) 
+            {
+                $("#subEventGuests").html(data);
+            },
+             error: function (error) 
+             {
+                console.log(`Error ${error}`);
+             }
+        });
+    }
+</script> }

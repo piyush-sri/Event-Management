@@ -1,0 +1,179 @@
+﻿@model EventQR.Models.Reports.ReportView
+@{
+    ViewData["Title"] = "GuestReport";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "Reports";
+}
+@await Html.PartialAsync("_eventPartial")
+
+<link href="~/uitemplate/admintemp/dist/plugins/datatables/css/datatables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+
+<div class="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Events Report</h4>
+                </div>
+            </div>
+            <br>
+            <div style="overflow-x:auto;">
+                <table class="table" id="tblGuestList">
+                    <thead>
+                        <tr>
+                            <th>Guests Name</th>
+                        @if(Model.SubEvents != null)
+                        {
+                            @foreach(var subevents in Model.SubEvents)
+                            {
+                                <th>@subevents.SubEventName </th>
+                            }
+                         }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Guests != null)
+                        {
+                            foreach (var guest in Model.Guests)
+                            {
+                                var allowedSubEventIds = guest.AllowedSubEventsIdsCommaList.Split(',').ToList();
+
+                                bool isDay2BreakfastAllowed = false;
+                                bool isDay2LunchAllowed = false;
+                                bool isDay2DinnerAllowed = false;
+                                bool isDay1BreakfastAllowed = false;
+                                bool isDay1LunchAllowed = false;
+                                bool isDay1DinnerAllowed = false;
+                                foreach (var allowedGuestId in allowedSubEventIds)
+                                {
+                                    foreach (var subevent in Model.SubEvents)
+                                    {
+                                        if (allowedGuestId == subevent.UniqueId.ToString())
+                                        {
+                                            if (subevent.SubEventName == "Day 2 Breakfast")
+                                            {
+                                                isDay2BreakfastAllowed = true;
+                                            }
+                                            else if (subevent.SubEventName == "Day 2 Lunch")
+                                            {
+                                                isDay2LunchAllowed = true;
+                                            }
+                                            else if (subevent.SubEventName == "Day 2 Dinner")
+                                            {
+                                                isDay2DinnerAllowed = true;
+                                            }
+                                            if (subevent.SubEventName == "Day 1 Breakfast")
+                                            {
+                                                isDay2BreakfastAllowed = true;
+                                            }
+                                            else if (subevent.SubEventName == "Day 1 Lunch")
+                                            {
+                                                isDay2LunchAllowed = true;
+                                            }
+                                            else if (subevent.SubEventName == "Day 1 Dinner")
+                                            {
+                                                isDay2DinnerAllowed = true;
+                                            }
+                                        }
+                                        if (isDay2BreakfastAllowed && isDay2LunchAllowed && isDay2DinnerAllowed)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (isDay2BreakfastAllowed && isDay2LunchAllowed && isDay2DinnerAllowed)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                <tr>
+                                    <td>@guest.Name</td>
+                                    <td>
+                                        @if (isDay2BreakfastAllowed)
+                                        {
+                                            <b>yes</b>
+                                        }
+                                        else
+                                        {
+                                            <b>NA</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isDay2LunchAllowed)
+                                        {
+                                            <b>yes</b>
+                                        }
+                                        else
+                                        {
+                                            <b>NA</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isDay2DinnerAllowed)
+                                        {
+                                            <b>yes</b>
+                                        }
+                                        else
+                                        {
+                                            <b>NA</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isDay1BreakfastAllowed)
+                                        {
+                                            <b>yes</b>
+                                        }
+                                        else
+                                        {
+                                            <b>NA</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isDay1LunchAllowed)
+                                        {
+                                            <b>yes</b>
+                                        }
+                                        else
+                                        {
+                                            <b>NA</b>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isDay1DinnerAllowed)
+                                        {
+                                            <b>yes</b>
+                                        }
+                                        else
+                                        {
+                                            <b>NA</b>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- DataTable -->
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/uitemplate/admintemp/dist/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblGuestList').DataTable({
+                scrollX: true,
+                fixedColumns: {
+                    leftColumns: 1
+                }
+            });
+        });
+    </script>
+}

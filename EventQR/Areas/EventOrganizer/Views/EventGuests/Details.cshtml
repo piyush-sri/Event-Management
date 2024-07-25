@@ -1,0 +1,113 @@
+﻿@model EventQR.Models.EventGuest
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventGuests";
+
+
+}
+@await Html.PartialAsync("_eventPartial")
+
+<div class="row">
+    
+    <div class="col-sm-12">
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h4 style="text-align:center"><b>Guest Details</b></h4>
+                    <hr />
+                    <div class="modal-body">
+                        <dl class="row">
+                           
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.MobileNo1)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.MobileNo1)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.MobileNo2)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.MobileNo2)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.GuestCount)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.GuestCount)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsInviteAccepted)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @if (Model.IsInviteAccepted)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>Invite not accepted</span>
+                                }
+
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.InviteAcceptedOn)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.InviteAcceptedOn)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsInviteSent)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.IsInviteSent)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.InviteSentOn)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Model.InviteSentOn.ToString("dd/MMM/yyyy h:mm tt")
+                            </dd>
+                            
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Model.CreatedDate.ToString("dd/MMM/yyyy h:mm tt")
+                                  </dd>
+                           
+                        </dl>
+
+                        <div>
+                            <a asp-action="Create" asp-route-id="@Model?.UniqueId">Edit</a> |
+                            <a asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+

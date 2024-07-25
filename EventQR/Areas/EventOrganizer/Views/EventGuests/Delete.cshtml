@@ -1,0 +1,108 @@
+﻿@model EventQR.Models.EventGuest
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventGuests";
+
+
+}
+@await Html.PartialAsync("_eventPartial")
+
+
+
+<div class="row">
+  
+    <div class="col-sm-12">
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h4 style="text-align:center"><b>Do You want to delete ?</b></h4>
+                    <div class="modal-body">
+                        <dl class="row">
+
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.MobileNo1)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.MobileNo1)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.MobileNo2)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.MobileNo2)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.GuestCount)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.GuestCount)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsInviteAccepted)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.IsInviteAccepted)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.InviteAcceptedOn)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.InviteAcceptedOn)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsInviteSent)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.IsInviteSent)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.InviteSentOn)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.InviteSentOn)
+
+                            </dd>
+
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.CreatedDate)
+                            </dd>
+
+                        </dl>
+
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="UniqueId" />
+                            <input type="submit" value="Delete" class="btn btn-danger" /> |
+                            <a asp-action="Index">Back to List</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>

@@ -1,0 +1,136 @@
+﻿@model EventQR.Models.EventGuest
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_OrganizerLayout.cshtml";
+    ViewBag.activeTabName = "thisEventGuests"; 
+    var str = string.Concat("style = \"display: none;\"");
+}
+@await Html.PartialAsync("_eventPartial")
+
+
+
+
+<div class="content">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-4">
+            <form method="post" asp-controller="EventGuests" asp-action="Import" enctype="multipart/form-data">
+                <div class="input-group">
+@*                 <input type="file" name="file" />
+ *@                <input type="file" name="file" class="form-control" id="fileInput">
+
+@*                 <button type="submit">Import Excel</button>
+ *@                <button type="submit" class="btn btn-success" id="submitButton">Download</button>
+                </div>
+            </form>
+            </div>
+
+            <form asp-action="Create">
+                <div class="col-md-12">
+                    <div asp-validation-summary=All class="text-danger"></div>
+                    <input type="hidden" asp-for="UniqueId" />
+                    <input type="hidden" asp-for="EventId" />
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xl-3 form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input placeholder="Guest Name" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-6  col-xl-3 form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input placeholder="Email Id" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-6  col-xl-3 form-group">
+                        <label asp-for="MobileNo1" class="control-label"></label>
+                        <input placeholder="Primary Mob. No. " asp-for="MobileNo1" class="form-control" />
+                        <span asp-validation-for="MobileNo1" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-6  col-xl-3 form-group">
+                        <label asp-for="MobileNo2" class="control-label"></label>
+                        <input placeholder="Secondry Mob. No. " asp-for="MobileNo2" class="form-control" />
+                        <span asp-validation-for="MobileNo2" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                       <table class="table table-bordered" border="1">
+                          
+                       </table>
+                      @if(Model.SubEvents!=null)
+                      for(int i=0;i<Model.SubEvents.Count();i++)
+                            {
+                                
+                                    <div class="col-sm-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="@Model.SubEvents[i].SubEventName" type="hidden">
+                                            <input class="form-check-input" asp-for="@Model.SubEvents[i].UniqueId" type="hidden">
+                                            <input class="form-check-input" asp-for="@Model.SubEvents[i].StartDateTime" type="hidden">
+                                            <input class="form-check-input" asp-for="@Model.SubEvents[i].EndDateTime" type="hidden">
+                                            <input class="form-check-input" asp-for="@Model.SubEvents[i].IsIncludedForThisGuest" type="checkbox">
+                                            <label class="form-check-label">
+                                                @Model.SubEvents[i].SubEventName | @Model.SubEvents[i].StartDateTime | @Model.SubEvents[i].EndDateTime
+                                            </label>
+                                        </div>
+                                    </div>
+                                
+                            }
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div> 
+                <div class="col-sm-12 text-center form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form> 
+
+            <div class="float-right">
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).getReady(function () {
+            alert();
+        });
+        function CheckIfMealAllowed(thisCheck) {
+            if (thisCheck.checked)
+                $('#AllowedMealsDiv').show();
+            else $('#AllowedMealsDiv').hide(); //style="display: none;"
+
+        }
+      
+    </script>
+
+    @{
+
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
