@@ -1,0 +1,660 @@
+﻿@model EventQR.Models.Inquery;
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="utf-8">
+    <title>EventQR</title>
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link href="/UiTemplate/landingpage/img/favicon.png" rel="icon">
+    <link href="/UiTemplate/landingpage/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="~/uitemplate/landingpage/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/uitemplate/landingpage/css/style.css" rel="stylesheet" />
+    <!-- Libraries CSS Files -->
+    <link href="/UiTemplate/landingpage/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/UiTemplate/landingpage/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/UiTemplate/landingpage/lib/venobox/venobox.css" rel="stylesheet">
+    <link href="/UiTemplate/landingpage/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/css/all.css" rel="stylesheet" />
+    <!-- Main Stylesheet File -->
+    
+
+    <!-- =======================================================
+      Theme Name: TheEvent
+      Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
+      Author: BootstrapMade.com
+      License: https://bootstrapmade.com/license/
+    ======================================================= -->
+    <style>
+        .h {
+            font-size: 40px;
+            font-family: 'Times New Roman', Times, serif;
+            margin-left: -20px;
+        }
+
+        .nav {
+        }
+
+        .logoClass {
+            font-size: xx-large;
+            color: #f82249;
+            font-weight: bold;
+        }
+
+        .for{
+
+            margin-top:-60px;
+            
+        }
+
+        .wow{
+
+            margin-top:-30px;
+
+        }
+
+        .he{
+
+            margin-top:-20px;
+        }
+
+        #btn{
+
+            border:none;
+            border-radius:30px;
+            height:45px;
+            background-color: #f82249;
+            margin-top:15px;
+            margin-left:-20px;
+            width:100px;
+            color:white;
+            font-size:15px;
+            
+        }
+        .ad{
+            margin-top:-25px;
+            margin-left:30px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .addr{
+            margin-top:1px;
+            margin-left: 30px;
+            font-family: 'Times New Roman', Times, serif;
+
+
+        }
+        #contact{
+            margin-top:-2px;
+
+
+
+        }
+
+        .hed {
+           font-family:'Times New Roman', Times, serif;
+        }
+       
+       
+
+      
+
+    </style>
+    @* Home Work
+    - JavaScript,  AJAX
+    Use a ajax function to post contact us form to /Home/ContactUs method and if responce is true -> display success message "Thanks for reaching us, we will contact you shortly."
+    else false,
+
+    *@
+  
+    <script src="~/js/jquery-3.4.1.slim.js"></script>
+
+    <script>
+       $(document).ready(function () {
+
+            $("#btn").click(function () {
+                var d = $("#for").serializeArray();
+                $.ajax({
+                    url: '/home/ContactUs',
+                    type: 'POST',
+                    data: d,
+                    dataType: 'json',
+                    success: function (res) {
+                        debugger;
+                        alert(res);
+                       
+                    }
+                })
+            });
+        });
+        
+    </script>
+  
+</head>
+
+<body>
+
+    <!--==========================
+      Header
+    ============================-->
+    <header id="header">
+        <div class="container">
+
+            <div id="logo" class="pull-left">
+                <span class="logoClass hed "> Ticket Scanner  </span>
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li class="menu-active"><a href="#intro">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li class="buy-tickets"><a asp-action="login" asp-controller="account"  >Login</a></li>
+                    </ul> 
+                </nav><!-- #nav-menu-container -->
+            </div>
+
+
+        </div>
+    </header><!-- #header -->
+
+    <!--==========================
+      Intro Section
+    ============================-->
+    @RenderBody()
+    <section id="intro">
+        <div class="intro-container wow fadeIn">
+            <h1 class="mb-4 pb-0">Generate<br><span>QR Ticket</span> For Your Event</h1>
+            <p class="mb-4 pb-0">10-12 December, Downtown Conference Center, New York</p>
+            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
+               data-autoplay="true"></a>
+            <a href="#about" class="about-btn scrollto">About The Event</a>
+        </div>
+    </section>
+
+    <main id="main">
+        <!--==========================
+          About Section
+        ============================-->
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2>About The Event</h2>
+                        <p>
+                           
+                            Come join us in Event We're hosting a fabulous Event bash filled with 
+                            laughter, joy, and plenty of surprises. Let's make memories together as we toast to another fantastic year for
+                            Don't miss out on the fun – mark your calendars and RSVP today!
+                        </p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h3>Where</h3>
+                        <p>Downtown Conference Center, New York</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h3>When</h3>
+                        <p>Monday to Wednesday<br>10-12 December</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+         
+        <!--==========================
+          Gallery Section
+        ============================-->
+        <section id="gallery" class="wow fadeInUp">
+
+            <div class="container">
+                <div class="section-header">
+                    <h2>Gallery</h2>
+                    <p>Check our gallery from the recent events</p>
+                </div>
+            </div>
+
+            <div class="owl-carousel gallery-carousel">
+                <a href="/UiTemplate/landingpage/img/gallery/1.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/1.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/2.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/2.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/3.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/3.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/4.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/4.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/5.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/5.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/6.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/6.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/7.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/7.jpg" alt=""></a>
+                <a href="/UiTemplate/landingpage/img/gallery/8.jpg" class="venobox" data-gall="gallery-carousel"><img src="/UiTemplate/landingpage/img/gallery/8.jpg" alt=""></a>
+            </div>
+
+        </section>
+         
+        <!--==========================
+          F.A.Q Section
+        ============================-->
+        <section id="faq" class="wow fadeInUp">
+
+            <div class="container">
+
+                <div class="section-header">
+                    <h2>F.A.Q </h2>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-9">
+                        <ul id="faq-list">
+
+                            <li>
+                                <a data-toggle="collapse" class="collapsed" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i class="fa fa-minus-circle"></i></a>
+                                <div id="faq1" class="collapse" data-parent="#faq-list">
+                                    <p>
+                                        Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a data-toggle="collapse" href="#faq2" class="collapsed">Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque? <i class="fa fa-minus-circle"></i></a>
+                                <div id="faq2" class="collapse" data-parent="#faq-list">
+                                    <p>
+                                        Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a data-toggle="collapse" href="#faq3" class="collapsed">Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi? <i class="fa fa-minus-circle"></i></a>
+                                <div id="faq3" class="collapse" data-parent="#faq-list">
+                                    <p>
+                                        Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a data-toggle="collapse" href="#faq4" class="collapsed">Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla? <i class="fa fa-minus-circle"></i></a>
+                                <div id="faq4" class="collapse" data-parent="#faq-list">
+                                    <p>
+                                        Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a data-toggle="collapse" href="#faq5" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="fa fa-minus-circle"></i></a>
+                                <div id="faq5" class="collapse" data-parent="#faq-list">
+                                    <p>
+                                        Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a data-toggle="collapse" href="#faq6" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="fa fa-minus-circle"></i></a>
+                                <div id="faq6" class="collapse" data-parent="#faq-list">
+                                    <p>
+                                        Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!--==========================
+          Subscribe Section
+        ============================-->
+        <section id="subscribe">
+            <div class="container wow fadeInUp">
+                <div class="section-header">
+                    <h2>NewsLetter</h2>
+                    <p>Rerum numquam illum recusandae quia mollitia consequatur.</p>
+                </div>
+
+                <form method="POST" action="#">
+                    <div class="form-row justify-content-center">
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="Enter your Email">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="mt-3">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+
+        <!--==========================
+          Buy Ticket Section
+        ============================-->
+        <section id="buy-tickets" class="section-with-bg wow fadeInUp">
+            <div class="container">
+
+                <div class="section-header">
+                    <h2>Buy Tickets</h2>
+                    <p>Velit consequatur consequatur inventore iste fugit unde omnis eum aut.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-lg-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">Standard Access</h5>
+                                <h6 class="card-price text-center">$150</h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
+                                    <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Community Access</li>
+                                    <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Workshop Access</li>
+                                    <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>After Party</li>
+                                </ul>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-lg-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">Pro Access</h5>
+                                <h6 class="card-price text-center">$250</h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Community Access</li>
+                                    <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Workshop Access</li>
+                                    <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>After Party</li>
+                                </ul>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pro Tier -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">Premium Access</h5>
+                                <h6 class="card-price text-center">$350</h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Community Access</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>Workshop Access</li>
+                                    <li><span class="fa-li"><i class="fa fa-check"></i></span>After Party</li>
+                                </ul>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Buy Now</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Order Form -->
+            <div id="buy-ticket-modal" class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Buy Tickets</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="#">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="your-name" placeholder="Your Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="your-email" placeholder="Your Email">
+                                </div>
+                                <div class="form-group">
+                                    <select id="ticket-type" name="ticket-type" class="form-control">
+                                        <option value="">-- Select Your Ticket Type --</option>
+                                        <option value="standard-access">Standard Access</option>
+                                        <option value="pro-access">Pro Access</option>
+                                        <option value="premium-access">Premium Access</option>
+                                    </select>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn">Buy Now</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+        </section>
+
+        <!--==========================
+          Contact Section
+        ============================-->
+        <section id="contact" class="section-bg wow fadeInUp">
+
+            <div class="section-header">
+                <h2 class="he">Contact Us</h2>  
+            </div>
+
+            <div class="container ">
+
+             @*    <form asp-action="Index" asp-controller="Home" method="post" role="form" id="for" class="contactForm for">
+                    <div class="row">
+                        <div class="form-group col-md-6 ms-6">
+                            <input type="text" name="name" required class="form-control mt-3 border-2" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                            <input type="email" class="form-control mt-3 border-2" required name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                            <input type="text" class="form-control mt-3 border-2" required name="org" id="org" placeholder="Organization Name" data-rule="minlen:4" />
+                            <textarea class="form-control mt-3 border-2" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                            <div class="text-center"><button type="submit" id="btn" class="mt-3">Send</button></div>
+
+                        </div> *@
+
+
+                        <form asp-action="Contact" asp-controller="Home" method="post" role="form" id="form" class="contactForm for">
+                            <div class="row">
+                                <div class="form-group col-md-6 ms-6">
+                                    <input asp-for="Name" class="form-control mt-3 border-2" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                                    <input asp-for="Email" class="form-control mt-3 border-2" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                                    <input asp-for="OrganizationName" class="form-control mt-3 border-2" placeholder="Organization Name" data-rule="minlen:4" />
+                                    <span asp-validation-for="OrganizationName" class="text-danger"></span>
+
+
+                                    <textarea asp-for="Message" class="form-control mt-3 border-2" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                    <span asp-validation-for="Message" class="text-danger"></span>
+
+                                    <div class="text-center"><button type="submit" id="btn" class="mt-3">Send</button></div>
+                                </div>
+                        <div class="form-group col-md-6">
+                            @*@<img src="img/contact.jpg" height="320px;"width="600px;" class="ms-4" style="border-radius:20px;" />*@
+                            <div class="row contact-info">
+
+                                <div class="col-md-6">
+                                    <div class="contact-phone mt-4">
+
+                                        <i class="ion-ios-telephone-outline"></i>
+                                        <h3> Phone No.:</h3>
+
+
+                                        <p>
+                                            <a href="tel:+918299101616">+918299101616</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="contact-email mt-4">
+
+                                        <i class="ion-ios-email-outline"></i>
+                                        <h3>Email:</h3>
+
+                                        <p><a href="mailto:contact@bitprosofttech.com">contact@bitprosofttech.com</a></p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="contact-address mt-3">
+                                        <i class="ion-ios-location-outline"></i>
+                                        <h3 class="ad">Address: </h3>
+                                        <address class="addr"> Sahai Complex 3rd Floor, IIM Mubarakpur - Lucknow - Uttar pradesh - 226013</address>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        
+
+
+                        </form>
+                         
+                        </div>
+                    </div>
+               
+                
+                <div  class="form">
+                   
+                    <div id="sendmessage">Your message has been sent. Thank you!</div>
+                    <div id="errormessage"></div>
+                    
+                </div>
+
+            </div>
+        </section><!-- #contact -->
+
+    </main>
+
+
+
+
+    <!--==========================
+      Footer
+    ============================-->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-info">
+                        <img src="/UiTemplate/landingpage/img/logo.png" alt="TheEvenet">
+                        <p>In alias aperiam. Placeat tempore facere. Officiis voluptate ipsam vel eveniet est dolor et totam porro. Perspiciatis ad omnis fugit molestiae recusandae possimus. Aut consectetur id quis. In inventore consequatur ad voluptate cupiditate debitis accusamus repellat cumque.</p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Services</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Services</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h4>Contact Us</h4>
+                        <p>
+                            A108 Adam Street <br>
+                            New York, NY 535022<br>
+                            United States <br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                Developed BY:BitProSoftTech &copy; Copyright. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!--
+                  All the links in the footer should remain intact.
+                  You can delete the links only if you purchased the pro version.
+                  Licensing information: https://bootstrapmade.com/license/
+                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+                -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer><!-- #footer -->
+
+
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="/UiTemplate/landingpage/lib/jquery/jquery.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/jquery/jquery-migrate.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/easing/easing.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/superfish/hoverIntent.js"></script>
+    <script src="/UiTemplate/landingpage/lib/superfish/superfish.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/wow/wow.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/venobox/venobox.min.js"></script>
+    <script src="/UiTemplate/landingpage/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/js/all.min.js"></script>
+    
+
+
+    <!-- Contact Form JavaScript File -->
+    <script src="/UiTemplate/landingpage/contactform/contactform.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="/UiTemplate/landingpage/js/main.js"></script>
+   
+
+
+
+
+</body>
+@await RenderSectionAsync("Scripts", required: false)
+
+
+</html>

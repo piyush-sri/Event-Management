@@ -1,0 +1,46 @@
+﻿@inject SignInManager<AppUser> signInManager;
+@{
+    string activeTab = string.Empty;
+    string activeTabName = "something...";
+    if (!string.IsNullOrEmpty(ViewBag.activeTabName))
+    {
+        activeTabName = ViewBag.activeTabName;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Ticket </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/bootstrap/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/UiTemplate/AdminTemp/dist/img/favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/style.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/et-line-font/et-line-font.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="~/UiTemplate/AdminTemp/dist/css/simple-lineicon/simple-line-icons.css" />
+    <script src="https://kit.fontawesome.com/a92c00a13e.js" crossorigin="anonymous"></script>
+    @RenderSection("Style", required: false)
+</head>
+<body class="skin-blue sidebar-mini">
+    @RenderBody()
+
+    <script src="~/UiTemplate/AdminTemp/dist/js/jquery.min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/js/adminkit.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/raphael/raphael-min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/morris/morris.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/functions/dashboard1.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/peity/jquery.peity.min.js"></script>
+    <script src="~/UiTemplate/AdminTemp/dist/plugins/functions/jquery.peity.init.js"></script>
+    <script src="~/js/Helper.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/AppJS/amt.js"></script>
+    @RenderSection("Scripts", required: false);
+</body>
+</html>
+
+

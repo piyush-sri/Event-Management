@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@{
+    Layout = null;
+    string _thisEventJsonStr = Context.Session.GetString("thisEvent");
+    var currentEvent = JsonConvert.DeserializeObject<Event>(_thisEventJsonStr);
+    if (currentEvent != null)
+    {
+        var currentEventStr = currentEvent.Title + " || " + " || " + @currentEvent.Description + " || " + @currentEvent.Venue + " || " + @currentEvent.StartDate.Value.ToString("dd/MMM/yyyy") + " || " + @currentEvent.EndDate.Value.ToString("dd/MMM/yyyy") + " || " + @currentEvent.Duration;
+        <div class="alert alert-info" role="alert"> @currentEventStr</div>
+    }
+}
